@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#141629">
+<title>Portfólio de Vídeo</title>
+<meta name="description" content="Edição de vídeo vertical para marcas que postam todo dia: cortes, animações e vídeos institucionais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,400..900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+/* Conceito: todo o trabalho é vertical (9:16), então a página gira em torno de telas de celular com vídeo de verdade.
+   Topo: texto à esquerda e uma parede de 3 vídeos rodando à direita.
+   Trabalhos: player fixo à esquerda e playlist agrupada por tipo à direita.
+   Tema único, índigo escuro, com uma cor por tipo de vídeo. */
+:root{
+  --ink:#141629;
+  --panel:#1d2038;
+  --panel-2:#272b4a;
+  --rule:#343960;
+  --paper:#eeecfb;
+  --soft:#a3a5c7;
+  --corte:#ff9ec0;
+  --serie:#b3a4ff;
+  --inst:#6fd9cc;
+  --principal:#ffd27a;
+  --animacao:#7db8ff;
+  --f-display:"Anybody","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--f-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img,video{max-width:100%}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--serie);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;font-weight:800}
+h2{font-size:clamp(34px,4.6vw,54px);line-height:1;font-variation-settings:"wdth" 110;letter-spacing:-.01em}
+.sub{color:var(--soft);max-width:58ch;margin:14px 0 0}
+section{padding-block:88px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;border:1px solid var(--rule);background:var(--panel);color:var(--paper);cursor:pointer;transition:background .15s}
+.btn:hover{background:var(--panel-2)}
+.btn.primary{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.btn.primary:hover{background:#fff}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+
+/* hero */
+.hero{padding-block:88px 96px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.hero h1{font-size:clamp(46px,6.6vw,92px);line-height:.92;letter-spacing:-.02em;font-variation-settings:"wdth" 72}
+.lead{max-width:54ch;font-size:clamp(17px,1.9vw,20px);color:var(--soft);margin:26px 0 32px}
+.hint{color:var(--soft);font-size:15px;margin:22px 0 0;max-width:46ch}
+
+.wall{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1fr);gap:20px;align-items:start;padding:8px 8px 8px 24px}
+.pv{position:relative;display:block;width:100%;padding:0;border:0;background:var(--panel);border-radius:18px;overflow:hidden;aspect-ratio:9/16;cursor:pointer;text-align:left;box-shadow:0 0 0 5px var(--panel),0 0 0 6px var(--rule);animation:rise .8s cubic-bezier(.2,.7,.2,1) backwards}
+.pv:nth-child(1){margin-top:72px;animation-delay:.12s}
+.pv:nth-child(3){margin-top:72px;animation-delay:.24s}
+.pv.main{box-shadow:0 0 0 5px var(--panel),0 0 0 7px var(--principal)}
+.pv .badge{position:absolute;top:12px;left:12px;padding:5px 11px;border-radius:999px;background:var(--principal);color:var(--ink);font-size:13px;font-weight:700;line-height:1.2}
+.pv video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pv .cap{position:absolute;left:0;right:0;bottom:0;padding:34px 12px 12px;background:linear-gradient(transparent,rgba(20,22,41,.92));font-size:13.5px;font-weight:600;line-height:1.25}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+
+/* trabalhos */
+.stage{display:grid;grid-template-columns:392px minmax(0,1fr);gap:56px;align-items:start;margin-top:48px}
+.player-col{position:sticky;top:32px;display:flex;flex-direction:column;gap:22px;scroll-margin-top:24px}
+.phone{--ph:min(700px,calc(100vh - 190px));position:relative;width:min(100%,calc(var(--ph) * 9 / 16));aspect-ratio:9/16;margin-inline:auto;border-radius:24px;overflow:hidden;background:#000;box-shadow:0 0 0 6px var(--panel),0 0 0 7px var(--rule)}
+.phone video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:block}
+.sound{position:absolute;top:14px;left:14px;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:0;background:var(--paper);color:var(--ink);font-weight:700;font-size:14px;cursor:pointer}
+.sound svg{width:16px;height:16px;fill:currentColor}
+.now{text-align:center;--c:var(--soft)}
+.now .kick{margin:0;font-size:14px;font-weight:700;color:var(--c)}
+.now h3{font-size:26px;line-height:1.1;margin-top:4px;font-variation-settings:"wdth" 100}
+
+.group+.group{margin-top:52px}
+.g-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 24px;padding-bottom:14px;margin-bottom:18px;border-bottom:1px solid var(--rule)}
+.g-head h3{font-size:30px;font-variation-settings:"wdth" 100;display:flex;align-items:center;gap:12px}
+.g-head h3 i{width:12px;height:12px;border-radius:3px;background:var(--c);flex:none}
+.g-head p{margin:0;color:var(--soft);font-size:15px;max-width:44ch}
+.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.item{display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px;width:100%;text-align:left;background:transparent;border:1px solid var(--rule);border-radius:14px;padding:10px;cursor:pointer;transition:background .15s,border-color .15s}
+.item:hover{background:var(--panel)}
+.item[aria-current="true"]{background:var(--panel);border-color:var(--c)}
+.th{position:relative;aspect-ratio:9/16;border-radius:8px;overflow:hidden;background:var(--panel-2)}
+.th video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.tx{display:flex;flex-direction:column;gap:5px;min-width:0;padding-block:2px}
+.t{font-family:var(--f-display);font-weight:700;font-size:19px;line-height:1.1;font-variation-settings:"wdth" 100}
+.d{font-size:14.5px;line-height:1.45;color:var(--soft)}
+.dur{margin-top:auto;display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:600;color:var(--soft);font-variant-numeric:tabular-nums}
+.len:empty{display:none}
+.eq{display:none;align-items:flex-end;gap:2px;height:12px}
+.item[aria-current="true"] .eq{display:inline-flex}
+.eq i{width:3px;height:8px;border-radius:1px;background:var(--c);animation:eq .9s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:.15s}
+.eq i:nth-child(3){animation-delay:.3s}
+@keyframes eq{0%,100%{height:3px}50%{height:12px}}
+
+/* serviços */
+.svc-wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:start}
+.svc-wrap .intro{position:sticky;top:40px}
+.svc{padding-block:24px;border-top:1px solid var(--rule)}
+.svc:last-child{border-bottom:1px solid var(--rule)}
+.svc h3{font-size:26px;font-variation-settings:"wdth" 100}
+.svc p{margin:8px 0 0;color:var(--soft);max-width:54ch}
+
+/* processo */
+.steps{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px;counter-reset:s}
+.steps li{counter-increment:s;padding-top:18px;border-top:1px solid var(--rule)}
+.steps li::before{content:counter(s);display:block;font-family:var(--f-display);font-size:64px;font-weight:900;line-height:1;font-variation-settings:"wdth" 60;color:var(--serie);margin-bottom:12px}
+.steps h3{font-size:21px;font-variation-settings:"wdth" 100}
+.steps p{margin:6px 0 0;color:var(--soft);font-size:15.5px}
+
+/* na prática */
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:40px;border:1px solid var(--rule);border-radius:18px;background:var(--panel);overflow:hidden}
+.fact{padding:30px 28px;border-left:1px solid var(--rule);min-width:0}
+.fact:first-child{border-left:0}
+.fact b{display:block;font-family:var(--f-display);font-size:46px;font-weight:900;line-height:1;font-variation-settings:"wdth" 80;margin-bottom:8px}
+.fact span{color:var(--soft)}
+.toolline{margin:28px 0 0;color:var(--soft)}
+.toolline strong{color:var(--paper);font-weight:600}
+
+/* contato */
+.contact{padding-block:96px 112px}
+.contact h2{font-size:clamp(42px,7.4vw,96px);font-variation-settings:"wdth" 72;max-width:14ch;line-height:.95}
+.contact p{color:var(--soft);max-width:52ch;font-size:19px;margin:24px 0 30px}
+
+@media (max-width:980px){
+  section{padding-block:68px}
+  .hero{padding-block:56px 72px}
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .wall{max-width:520px}
+  .stage{grid-template-columns:1fr;gap:40px}
+  .player-col{position:static}
+  .phone{--ph:min(620px,calc(100vh - 160px))}
+  .svc-wrap{grid-template-columns:1fr;gap:28px}
+  .svc-wrap .intro{position:static}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts{grid-template-columns:1fr}
+  .fact{border-left:0;border-top:1px solid var(--rule)}
+  .fact:first-child{border-top:0}
+}
+@media (max-width:620px){
+  .items{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .hint{display:none}
+  .lead{margin:20px 0 26px}
+  .wall{gap:12px;padding-left:8px}
+  .pv:nth-child(1){margin-top:44px}
+  .pv:nth-child(3){margin-top:44px}
+  .pv .badge{top:8px;left:8px;padding:3px 8px;font-size:11px}
+  .pv .cap{font-size:12px;padding:26px 8px 8px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .pv{animation:none}
+  .eq i{animation:none}
+}
+</style>
+</head>
+<body>
+
+  <section class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Edição de vídeo para marcas que postam todo dia.</h1>
+        <p class="lead">Edito Reels, TikToks e Shorts com ritmo, legendas dinâmicas e um começo que segura quem está rolando o feed. Também crio vídeos institucionais que explicam o seu negócio de forma clara.</p>
+        <div class="ctas">
+          <a class="btn primary" href="#trabalhos">Ver trabalhos</a>
+          <a class="btn" href="#contato">Pedir orçamento</a>
+        </div>
+        <p class="hint">Tudo o que aparece aqui foi editado por mim. Clique em um vídeo para assistir com som.</p>
+      </div>
+      <div class="wall" id="wall" aria-label="Prévia de três trabalhos"></div>
+    </div>
+  </section>
+
+  <section id="trabalhos" style="padding-top:8px">
+    <div class="wrap">
+      <h2>Trabalhos</h2>
+      <p class="sub">Escolha um vídeo da lista para assistir. Todos são verticais, no formato de Reels, TikTok e Shorts.</p>
+
+      <div class="stage">
+        <div class="player-col" id="player-col">
+          <div class="phone">
+            <video id="main" playsinline loop controls controlslist="nodownload" preload="metadata"></video>
+            <button class="sound" id="sound" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>
+              Ativar som
+            </button>
+          </div>
+          <div class="now" id="now">
+            <p class="kick" id="now-kick"></p>
+            <h3 id="now-title"></h3>
+          </div>
+        </div>
+        <div id="list"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicos">
+    <div class="wrap svc-wrap">
+      <div class="intro">
+        <h2>O que eu faço</h2>
+        <p class="sub">Do corte bruto ao vídeo pronto para postar.</p>
+      </div>
+      <div>
+        <div class="svc"><h3>Reels, TikTok e Shorts</h3><p>Cortes rápidos, legendas animadas, zooms e efeitos sonoros, com um gancho forte logo no começo.</p></div>
+        <div class="svc"><h3>Vídeo institucional</h3><p>Apresentação da empresa, do produto ou do serviço, com trilha, correção de cor e narração sincronizada.</p></div>
+        <div class="svc"><h3>Cortes de lives e podcasts</h3><p>Um episódio longo vira vários vídeos verticais prontos para postar durante a semana.</p></div>
+        <div class="svc"><h3>Legendas</h3><p>Legendas sincronizadas e revisadas, no estilo da sua marca, para quem assiste sem som.</p></div>
+        <div class="svc"><h3>Cor e áudio</h3><p>Correção de cor, padronização entre câmeras, limpeza de ruído e mixagem da voz com a trilha.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="processo">
+    <div class="wrap">
+      <h2>Como funciona</h2>
+      <p class="sub">Do primeiro contato ao arquivo final, em cinco passos.</p>
+      <ol class="steps">
+        <li><h3>Briefing</h3><p>Você conta o objetivo e o público, e manda referências e o material bruto.</p></li>
+        <li><h3>Seleção</h3><p>Escolho os melhores trechos e monto a estrutura: gancho, conteúdo e chamada final.</p></li>
+        <li><h3>Edição</h3><p>Ritmo, legendas, trilha e cor. A primeira versão sai no prazo combinado.</p></li>
+        <li><h3>Revisão</h3><p>Ajusto o que você pedir. Duas rodadas de revisão estão incluídas.</p></li>
+        <li><h3>Entrega</h3><p>Arquivo final em alta qualidade, no formato certo para cada rede.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>Na prática</h2>
+      <div class="facts">
+        <div class="fact"><b>24 a 72h</b><span>de prazo médio para um Reels</span></div>
+        <div class="fact"><b>2 revisões</b><span>incluídas em todo projeto</span></div>
+        <div class="fact"><b>Até 4K</b><span>em MP4, pronto para postar</span></div>
+      </div>
+      <p class="toolline">Trabalho com <strong>Premiere Pro</strong>, <strong>After Effects</strong>, <strong>DaVinci Resolve</strong>, <strong>CapCut</strong> e <strong>Photoshop</strong>.</p>
+    </div>
+  </section>
+
+  <section class="contact" id="contato">
+    <div class="wrap">
+      <h2>Gostou do que viu?</h2>
+      <p>Me chame pelo chat do 99Freelas contando o tipo de vídeo, a quantidade e o prazo. Respondo com uma proposta no mesmo dia.</p>
+      <a class="btn primary" href="#trabalhos">Rever os trabalhos</a>
+    </div>
+  </section>
+
+<script>
+/* ============================================================
+   EDITE AQUI os vídeos do portfólio.
+   Os arquivos ficam na pasta "edits", ao lado deste index.html.
+   Espaços no nome viram %20 (ex.: "Corte%20novo.mp4").
+   cat:      "corte", "inst" ou "animacao" (define o grupo e a cor)
+   tipo:     texto pequeno que aparece acima do título no player
+   principal: true no seu melhor vídeo (fica no meio do topo e abre primeiro)
+   destaque: true nos 2 vídeos que aparecem ao lado do principal no topo
+   A duração é lida do próprio arquivo.
+   ============================================================ */
+const GRUPOS = [
+  {cat:"corte",     nome:"Cortes",          texto:"Trechos de conversas longas em formato vertical, com legenda dinâmica e ritmo para segurar a atenção."},
+  {cat:"inst",      nome:"Institucional",   texto:"Vídeo de apresentação para empresa."},
+  {cat:"animacao",  nome:"Animações",       texto:"Vídeos animados com legendas e cortes rápidos."},
+];
+
+const VIDEOS = [
+  {id:"principal", cat:"corte", principal:true, tipo:"Meu melhor trabalho", titulo:"Esteja Pronto", resumo:"O trabalho que melhor mostra o que eu faço.", video:"edits/VIdeo%20Principal.mp4"},
+  {id:"decidem",  cat:"animacao", tipo:"Animação", titulo:"Série: Vocês decidem", resumo:"Animação em formato de série, com legendas e cortes rápidos.", video:"edits/Serie%20Voces%20decidem.mp4"},
+  {id:"dinheiro", cat:"animacao", tipo:"Animação", titulo:"Para onde vai meu dinheiro?", resumo:"Animação explicativa, com legendas e cortes rápidos.", video:"edits/Para%20onde%20vai%20meu%20dinheiro%20IA.mp4"},
+  {id:"sistema",  cat:"corte", tipo:"Corte",                titulo:"O sistema não é seu amigo",    resumo:"Corte vertical com legendas dinâmicas e ritmo para reter.", video:"edits/Corte%20O%20sistema%20nao%20e%20seu%20amigo.mp4"},
+  {id:"primo",    cat:"corte", tipo:"Corte",                titulo:"A falência do Primo Rico",     resumo:"Corte vertical com legendas dinâmicas e ritmo para reter.", video:"edits/Corte%20primo-rico-falido.mp4"},
+  {id:"mrbeast",  cat:"corte", tipo:"Edição",               titulo:"MrBeast bilionário",           resumo:"Edição com legendas e efeitos sonoros.",                    video:"edits/mrbeast-bilionario-FINAL.mp4", destaque:true},
+  {id:"mrbeastpt",cat:"corte", tipo:"Edição",               titulo:"MrBeast em português",         resumo:"Edição com legendas em português.",                         video:"edits/mrbeast-edicao-PT-FINAL.mp4"},
+  {id:"gta",      cat:"corte", tipo:"Edição",               titulo:"GTA Boobie",                   resumo:"Edição com ritmo e efeitos.",                               video:"edits/gta-boobie-FINAL.mp4"},
+  {id:"empresa",  cat:"inst",  tipo:"Vídeo institucional",  titulo:"Apresentação de empresa",      resumo:"Vídeo de um minuto que apresenta a empresa de forma direta.", video:"edits/Propaganda%20emrpesa.mp4", destaque:true},
+];
+
+/* ------------------------------------------------------------ */
+const $ = id => document.getElementById(id);
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+const fmt = s => { s = Math.round(s); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+const warn = src => console.warn("Vídeo não encontrado. Confira o nome do arquivo:", decodeURI(src));
+
+const main = $("main"), sound = $("sound"), playerCol = $("player-col");
+main.muted = true;
+const syncSound = () => { sound.hidden = !main.muted; };
+
+/* playlist agrupada */
+function makeItem(v){
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "item";
+  b.dataset.id = v.id;
+  b.setAttribute("aria-current", "false");
+  b.innerHTML =
+    `<span class="th"><video muted playsinline preload="metadata" tabindex="-1" src="${v.video}#t=0.5"></video></span>
+     <span class="tx"><span class="t">${v.titulo}</span><span class="d">${v.resumo}</span>
+     <span class="dur"><span class="len"></span><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></span></span>`;
+  const tv = b.querySelector("video");
+  tv.addEventListener("loadedmetadata", () => { b.querySelector(".len").textContent = fmt(tv.duration); });
+  tv.addEventListener("error", () => { warn(v.video); hideItem(b); });
+  if (fine && !calm){
+    b.addEventListener("mouseenter", () => { tv.currentTime = 0; tv.play().catch(() => {}); });
+    b.addEventListener("mouseleave", () => { tv.pause(); tv.currentTime = 0.5; });
+  }
+  b.addEventListener("click", () => { select(v.id, true); goToPlayer(); });
+  return b;
+}
+
+function hideItem(b){
+  const box = b.closest(".group");
+  const eraAtual = b.getAttribute("aria-current") === "true";
+  b.remove();
+  if (box && !box.querySelector(".item")) box.remove();
+  if (eraAtual){ const prox = document.querySelector(".item"); if (prox) select(prox.dataset.id, false); }
+}
+
+const list = $("list");
+GRUPOS.forEach(g => {
+  const vids = VIDEOS.filter(v => v.cat === g.cat);
+  if (!vids.length) return;
+  const box = document.createElement("div");
+  box.className = "group";
+  box.style.setProperty("--c", `var(--${g.cat})`);
+  box.innerHTML = `<header class="g-head"><h3><i></i>${g.nome}</h3><p>${g.texto}</p></header><div class="items"></div>`;
+  vids.forEach(v => box.querySelector(".items").appendChild(makeItem(v)));
+  list.appendChild(box);
+});
+
+/* player */
+function select(id, fromUser){
+  const v = VIDEOS.find(x => x.id === id);
+  if (!v) return;
+  main.src = v.video + "#t=0.1";
+  if (fromUser) main.muted = false;
+  syncSound();
+  main.setAttribute("aria-label", v.titulo);
+  $("now-kick").textContent = v.tipo;
+  $("now-title").textContent = v.titulo;
+  $("now").style.setProperty("--c", `var(--${v.cat})`);
+  document.querySelectorAll(".item").forEach(i => i.setAttribute("aria-current", i.dataset.id === id ? "true" : "false"));
+  if (fromUser || !calm){
+    main.play().catch(() => { main.muted = true; main.play().catch(() => {}); });
+  }
+}
+function goToPlayer(){
+  playerCol.scrollIntoView({behavior: calm ? "auto" : "smooth", block: "start"});
+}
+main.addEventListener("error", () => { if (main.currentSrc) warn(main.currentSrc); });
+main.addEventListener("volumechange", syncSound);
+sound.addEventListener("click", () => { main.muted = false; syncSound(); main.play().catch(() => {}); });
+
+/* pausa o vídeo mudo quando sai da tela, para não gastar bateria */
+let autoPaused = false;
+new IntersectionObserver(([e]) => {
+  if (!e.isIntersecting && main.muted && !main.paused){ main.pause(); autoPaused = true; }
+  else if (e.isIntersecting && autoPaused){ autoPaused = false; main.play().catch(() => {}); }
+}).observe(playerCol);
+
+/* parede de destaques no topo */
+const wall = $("wall");
+const wallVideos = [];
+const lados = VIDEOS.filter(v => v.destaque && !v.principal).slice(0, 2);
+const ordem = [lados[0], VIDEOS.find(v => v.principal), lados[1]].filter(Boolean);
+ordem.forEach(v => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "pv" + (v.principal ? " main" : "");
+  b.setAttribute("aria-label", "Assistir: " + v.titulo);
+  b.innerHTML = `<video muted loop playsinline preload="auto" src="${v.video}"></video><span class="cap">${v.titulo}</span>`;
+  const pv = b.querySelector("video");
+  pv.addEventListener("error", () => { warn(v.video); if (!v.principal) b.remove(); });
+  b.addEventListener("click", () => { select(v.id, true); goToPlayer(); });
+  wall.appendChild(b);
+  wallVideos.push(pv);
+});
+if (!calm){
+  wallVideos.forEach(pv => pv.play().catch(() => {}));
+  new IntersectionObserver(([e]) => {
+    wallVideos.forEach(pv => e.isIntersecting ? pv.play().catch(() => {}) : pv.pause());
+  }).observe(wall);
+}
+
+select((VIDEOS.find(v => v.principal) || VIDEOS[0]).id, false);
+</script>
+</body>
+</html>
